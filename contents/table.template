@@ -1,0 +1,14 @@
+<table id="customers">
+  <tr>
+    <td colspan="{colspan}" class="suptitle"><a href="{href-suptitle}">{suptitle}</a></th>
+  </tr>
+  <tr>
+    <th class="title"><a href="{href-title}">{title}</a></td>
+  </tr>
+  <tr>
+    <td class="image"><img src="{image-src}" width="200"></td>
+  </tr>
+  <tr>
+    <td class="ingridient">{ingridient}</td>
+  </tr>
+</table>
