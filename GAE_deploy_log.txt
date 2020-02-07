@@ -1,0 +1,9 @@
+    5  git clone https://github.com/kouui/recipe-recommendation.git
+    6  ls
+    7  cd recipe-recommendation/
+    8  virtualenv --python python3 ~/envs/recipe-recommendation
+    9  source ~/envs/recipe-recommendation/bin/activate
+   10  pip install -r requirements.txt
+   11  python main.py
+   12  gcloud app create
+   13  gcloud app deploy app.yaml --project recipe-recommendation-267516
