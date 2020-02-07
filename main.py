@@ -36,7 +36,7 @@ def generate_index_html():
     with open(fname["output"], 'w') as f:
         f.write(index_string)
 
-    return "link : <a href='http://127.0.0.1:7777/'>http://127.0.0.1:7777/</a>"
+    return "link : <a href='http://127.0.0.1:8080/'>http://127.0.0.1:8080/</a>"
 
 @app.route('/')
 def index_html():
@@ -48,4 +48,4 @@ def index_html():
 
 if __name__ == "__main__":
 
-    app.run(debug=True, port=7777, threaded=True)
+    app.run(host='127.0.0.1', debug=True, port=8080, threaded=True)
