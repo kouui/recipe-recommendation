@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from scrap_xiachufang import url_to_recipe, format_recipe_string, scrap_by_search_word_list
-from itertools import combinations
+from itertools import product, combinations
+import random
 
 def replace_string_in_table(str_list, recipe_string_list, sup_title, sup_url, n):
     r"""
@@ -73,13 +74,45 @@ def get_single_table_string(search_word_list, fname_dict, n_recipe=3):
 
     return single_table_string
 
-def get_multi_table_string(word_list, fname_dict, n_recipe=3, n_combination=2):
+def get_multi_table_string(word_dict, fname_dict, n_recipe=3):
     r"""
     """
     table_string_list = []
-    for pair in combinations(word_list, n_combination):
-        single_table_string = get_single_table_string(pair, fname_dict, n_recipe=n_recipe)
-        table_string_list.append(single_table_string)
+
+    if len(word_dict["肉"]) == 0:
+    # 没有肉的时候
+        if len(word_dict["蔬菜"]) > 2:
+        # 有很多菜就把菜组合起来吃
+            for pair in combinations(word_dict["蔬菜"],2):
+                single_table_string = get_single_table_string(pair, fname_dict, n_recipe=n_recipe)
+                table_string_list.append(single_table_string)
+        else:
+        # 没有多少菜了，就单个搜菜
+            for item in word_dict["蔬菜"]:
+                pair = [item,]
+                single_table_string = get_single_table_string(pair, fname_dict, n_recipe=n_recipe)
+                table_string_list.append(single_table_string)
+
+    else:
+    # 有肉的时候
+        if len(word_dict["蔬菜"]) > 0:
+        # 有肉有菜，肉菜组合搜索，最后随机搜下肉
+            for pair in product( word_dict["肉"], word_dict["蔬菜"] ):
+                single_table_string = get_single_table_string(pair, fname_dict, n_recipe=n_recipe)
+                table_string_list.append(single_table_string)
+
+            item = random.choice( word_dict["肉"] )
+            pair = [item,]
+            single_table_string = get_single_table_string(pair, fname_dict, n_recipe=n_recipe)
+            table_string_list.append(single_table_string)
+
+        else:
+        #只有肉的话单独搜全部肉
+            for item in word_dict["肉"]:
+                pair = [item,]
+                single_table_string = get_single_table_string(pair, fname_dict, n_recipe=n_recipe)
+                table_string_list.append(single_table_string)
+
 
     return "\n".join(table_string_list)
 
@@ -95,9 +128,12 @@ if __name__ == "__main__":
     }
 
     #words = ["えび","ホタテ","小松菜"]
-    words = ["猪肉","虾仁","白菜"]
+    words = {
+        "蔬菜" : ["土豆", "青椒"],
+        "肉" : ["鸡胸肉",],
+    }
 
-    multi_table_string = get_multi_table_string(words, fname_dict=fname, n_recipe=3, n_combination=2)
+    multi_table_string = get_multi_table_string(words, fname_dict=fname, n_recipe=3)
 
     with open(fname["template"]["index"], 'r') as f:
         index_string = f.read()
