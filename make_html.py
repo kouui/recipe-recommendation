@@ -1,7 +1,7 @@
 #! /Users/liu/kouui/anaconda3/envs/recipe_py37/bin/python
 # -*- coding: utf-8 -*-
 
-from scrap_cookpad import url_to_recipe, format_recipe_string, scrap_by_search_word_list
+from scrap_xiachufang import url_to_recipe, format_recipe_string, scrap_by_search_word_list
 from itertools import combinations
 
 def replace_string_in_table(str_list, recipe_string_list, sup_title, sup_url, n):
@@ -53,7 +53,7 @@ def get_single_table_string(search_word_list, fname_dict, n_recipe=3):
     """
     #-- scrap recipe
 
-    url_cookpad, url_list = scrap_by_search_word_list(search_word_list)
+    url_main, url_list = scrap_by_search_word_list(search_word_list)
 
     recipe_string_list = []
     for i in range(n_recipe):
@@ -67,7 +67,7 @@ def get_single_table_string(search_word_list, fname_dict, n_recipe=3):
         lines = f.readlines()
 
     sup_title = "+".join(search_word_list)
-    sup_url   = url_cookpad
+    sup_url   = url_main
     _ = replace_string_in_table(lines, recipe_string_list, sup_title=sup_title, sup_url=sup_url, n=n_recipe)
     single_table_string = "".join(lines)
 
@@ -91,10 +91,11 @@ if __name__ == "__main__":
     "template" : {"table" : "./contents/table.template",
                   "index" : "./contents/index.template",
                   "style" : "./contents/style.template"},
-    "output" : "./templates/index.html",
+    "output" : "./templates/index0.html",
     }
 
-    words = ["えび","ホタテ","小松菜"]
+    #words = ["えび","ホタテ","小松菜"]
+    words = ["猪肉","虾仁","白菜"]
 
     multi_table_string = get_multi_table_string(words, fname_dict=fname, n_recipe=3, n_combination=2)
 
