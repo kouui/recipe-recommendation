@@ -44,7 +44,7 @@ def generate_index_html():
 
     global_var["table_string"] = multi_table_string
 
-    return "link : <a href='http://https://recipe-recommendation-267607.appspot.com/'>http://https://recipe-recommendation-267607.appspot.com/</a>"
+    return "link : <a href='https://recipe-recommendation-267607.appspot.com/'>https://recipe-recommendation-267607.appspot.com/</a>"
 
 @app.route('/')
 def index_html():
