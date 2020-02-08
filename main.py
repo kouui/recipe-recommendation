@@ -27,6 +27,7 @@ def generate_index_html():
     word_dict = {}
     word_dict["肉"] = filter_empty_string( word_[0].split('-') )
     word_dict["蔬菜"] = filter_empty_string( word_[1].split('-') )
+    word_dict["主食"] = filter_empty_string( word_[2].split('-') )
 
     #print(f"肉 ： {word_dict['肉']}")
     #print(f"蔬菜： {word_dict['蔬菜']}")

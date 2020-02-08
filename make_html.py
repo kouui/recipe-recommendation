@@ -79,6 +79,12 @@ def get_multi_table_string(word_dict, fname_dict, n_recipe=3):
     """
     table_string_list = []
 
+    # 单独搜的主食
+    for item in word_dict["主食"]:
+        pair = [item,]
+        single_table_string = get_single_table_string(pair, fname_dict, n_recipe=n_recipe)
+        table_string_list.append(single_table_string)
+
     if len(word_dict["肉"]) == 0:
     # 没有肉的时候
         if len(word_dict["蔬菜"]) > 2:
