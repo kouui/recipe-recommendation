@@ -5,10 +5,13 @@
 import requests, lxml.html, re
 from bs4 import BeautifulSoup
 
+headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"}
+#headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'}
+
 def url_to_recipe(url):
     r"""
     """
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
     root = BeautifulSoup(response.content,'html.parser')
     recipe_title = root.find('h1',class_='page-title').getText().strip()
     src = root.find('div', class_='cover image expandable block-negative-margin')
@@ -53,7 +56,7 @@ def scrap_by_search_word_list(search_word_list):
     url_main = f"http://www.xiachufang.com/search/?keyword={search_keyword}&cat=1001"
 
     # レシピ検索のhtmlを取得
-    response = requests.get(url_main)
+    response = requests.get(url_main, headers=headers)
     root = BeautifulSoup(response.content,'html.parser')
     recipe_list = root.find_all('div',class_='info pure-u')
     #print(f"totally {len(recipe_list)} recipe in one page")
